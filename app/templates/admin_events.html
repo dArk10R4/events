@@ -1,0 +1,53 @@
+<!-- app/templates/admin_events.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Manage Events</h1>
+{% for message, category in get_flashed_messages(with_categories=True) %}
+    <div class="flash {{ category }}">{{ message }} {{ category }}</div>
+{% endfor %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Location</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.title }}</td>
+            <td>{{ event.author }}</td>
+            <td>{{ event.start }}</td>
+            <td>{{ event.end }}</td>
+            <td>{{ event.location }}</td>
+            <td>
+                {% if event.image_path %}
+                    <img src="{{ url_for('static', filename='event_images/' + event.image_path) }}" alt="Event Image" width="100">
+                {% else %}
+                    No image attached
+                {% endif %}
+            </td>
+            <td>
+                <form action="/admin/events/{{ event.id }}/attach_image" method="POST" enctype="multipart/form-data">
+                    <label for="image">Attach/Modify Image</label>
+                    <input type="file" name="image">
+                    <button type="submit">Upload</button>
+                </form>
+                <form action="/admin/events/{{ event.id }}/remove_image" method="POST">
+                    <button type="submit" {% if not event.image_path %}disabled{% endif %}>Remove Image</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

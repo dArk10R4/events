@@ -1,11 +1,33 @@
-<!-- app/templates/user_dashboard.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome to your Dashboard, {{ current_user.username }}!</h1>
+<h1>Upcoming Events</h1>
 
-<p>You're logged in as a regular user.</p>
-
-<a href="/logout">Logout</a>
+{% if events %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.title }}</td>
+                <td>{{ event.author }}</td>
+                <td>{{ event.start }}</td>
+                <td>{{ event.end }}</td>
+                <td>{{ event.location }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No events available at the moment.</p>
+{% endif %}
 
 {% endblock %}

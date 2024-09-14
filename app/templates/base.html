@@ -13,10 +13,11 @@
             <li><a href="/">Home</a></li>
             {% if current_user.is_authenticated %}
                 {% if current_user.role == 'admin' %}
-                    <li><a href="/admin/create_user_page">Create User</a></li>
+                    <li><a href="/admin/create_user">Create User</a></li>
                     <li><a href="/admin/users_page">View Users</a></li>
+                    <li><a href="/admin/events">Events</a></li>
                 {% endif %}
-                <li><a href="/user/dashboard">Dashboard</a></li>
+                <li><a href="/events">Dashboard</a></li>
                 <li><a href="/logout">Logout</a></li>
             {% else %}
                 <li><a href="/login">Login</a></li>
