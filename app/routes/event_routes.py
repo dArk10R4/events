@@ -1,9 +1,12 @@
 from flask import Blueprint, render_template, flash
 from app.services.event_service import fetch_events, local_events
+from flask_login import login_required
+
 
 event_routes = Blueprint('event_routes', __name__)
 
 @event_routes.route('/events', methods=['GET'])
+@login_required
 def events_page():
     events = fetch_events()
 
