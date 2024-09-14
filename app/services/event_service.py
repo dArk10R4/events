@@ -100,6 +100,10 @@ def fetch_events():
         print(f"Error fetching events: {e}")
         return None
 
+def local_events():
+    events = Event.query.all()
+    return events
+
 def fetch_admin_events():
     """Fetch events from an external API and merge them with locally stored events."""
     try:
