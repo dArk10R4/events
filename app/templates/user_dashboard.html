@@ -1,0 +1,11 @@
+<!-- app/templates/user_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to your Dashboard, {{ current_user.username }}!</h1>
+
+<p>You're logged in as a regular user.</p>
+
+<a href="/logout">Logout</a>
+
+{% endblock %}

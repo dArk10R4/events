@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <style>
+        /* Simple slider styles */
+        #slider {
+            width: 100%;
+            max-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        #slider img {
+            width: 100%;
+            display: none;
+        }
+        #slider img.active {
+            display: block;
+        }
+        .slider-title {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="slider">
+        {% for event in events %}
+            <img src="{{ url_for('static', filename='images/' + event.image) }}" alt="{{ event.title }}" class="{% if loop.first %}active{% endif %}">
+            <div class="slider-title">{{ event.title }}</div>
+        {% endfor %}
+    </div>
+
+    <h1>Events List</h1>
+    <ul>
+        {% for event in events %}
+            <li>{{ event.title }} - {{ event.start }} to {{ event.end }} at {{ event.location }}</li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        let sliderImages = document.querySelectorAll('#slider img');
+        let currentIndex = 0;
+
+        function showNextImage() {
+            sliderImages[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % sliderImages.length;
+            sliderImages[currentIndex].classList.add('active');
+        }
+
+        setInterval(showNextImage, 10000);
+    </script>
+</body>
+</html>

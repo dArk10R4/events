@@ -1,0 +1,24 @@
+<!-- app/templates/users.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>All Users</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
