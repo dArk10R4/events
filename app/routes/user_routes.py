@@ -22,9 +22,9 @@ def login_page():
             
             # Redirect based on role
             if user.role == 'admin':
-                return redirect(url_for('user_routes.create_user_page'))
+                return redirect(url_for('user_routes.users_page'))
             else:
-                return redirect(url_for('user_routes.user_dashboard'))
+                return redirect(url_for('event_routes.events_page'))
         else:
             flash('Login failed. Check email and password.', 'danger')
     
@@ -62,7 +62,7 @@ def user_dashboard():
 @login_required
 def users_page():
     if current_user.role != 'admin':
-        return redirect(url_for('user_routes.user_dashboard'))
+        return redirect(url_for('event_routes.events_page'))
     
     users = get_all_users()
     return render_template('users.html', title='All Users', users=users)
@@ -72,7 +72,7 @@ def users_page():
 def create_user_page():
     if current_user.role != 'admin':
         flash('You do not have permission to access this page.', 'danger')
-        return redirect(url_for('user_routes.user_dashboard'))
+        return redirect(url_for('event_routes.events_page'))
     
     return render_template('create_user.html', title='Create User')
 
@@ -82,7 +82,7 @@ def create_user_page():
 def create_user_submit():
     if current_user.role != 'admin':
         flash('You do not have permission to perform this action.', 'danger')
-        return redirect(url_for('user_routes.user_dashboard'))
+        return redirect(url_for('event_routes.events_page'))
 
     # Get form data
     username = request.form['username']
@@ -97,4 +97,4 @@ def create_user_submit():
     if user:
         return redirect(url_for('user_routes.users_page'))  # Redirect to user list page
     else:
-        return redirect(url_for('user_routes.create_user_page'))  # Reload the form with error
+        return redirect(url_for('user_routes.users_page'))  # Reload the form with error

@@ -5,7 +5,7 @@ from flask_login import login_required
 
 event_routes = Blueprint('event_routes', __name__)
 
-@event_routes.route('/events', methods=['GET'])
+@event_routes.route('/', methods=['GET'])
 @login_required
 def events_page():
     events = fetch_events()

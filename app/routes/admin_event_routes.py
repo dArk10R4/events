@@ -13,7 +13,7 @@ def admin_events():
     """Display admin events page with both API and local events."""
     if current_user.role != 'admin':
         flash('Access denied!', 'danger')
-        return redirect(url_for('user_routes.user_dashboard'))
+        return redirect(url_for('event_routes.events_page'))
 
     # Fetch merged events (API + local with images)
     events = fetch_admin_events()
@@ -27,7 +27,7 @@ def attach_image(event_id):
     """Attach an image to an event and store the event locally if not already stored."""
     if current_user.role != 'admin':
         flash('Access denied!', 'danger')
-        return redirect(url_for('user_routes.user_dashboard'))
+        return redirect(url_for('event_routes.events_page'))
 
     # Check if the file is in the request
     if 'image' not in request.files:
@@ -55,7 +55,7 @@ def remove_image(event_id):
     """Remove the attached image and delete the event from the local database."""
     if current_user.role != 'admin':
         flash('Access denied!', 'danger')
-        return redirect(url_for('user_routes.user_dashboard'))
+        return redirect(url_for('event_routes.events_page'))
 
     try:
         # Call the service function to handle the logic
