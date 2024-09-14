@@ -14,7 +14,7 @@ def create_app():
     
     # Initialize the database
     db.init_app(app)
-    
+     
     # Initialize Flask-Login
     login_manager = LoginManager()
     login_manager.init_app(app)
